@@ -1,0 +1,27 @@
+:root {
+    --star-size: 10px;
+}
+
+#game {
+    background: black;
+    position: relative;
+    overflow: hidden;
+}
+
+.star{
+    position: absolute;
+    border-radius: 50%;
+    width: var(--star-size);
+    height: var(--star-size);
+    background: yellow;
+}
+
+#ship{
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+}
