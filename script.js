@@ -9,6 +9,9 @@ const ship = document.getElementById('ship')
 ship.style.width = '20px'
 
 const tickDurationMilliseconds = 50
+let score = 0
+
+let tickInterval
 
 /// /////////////////////////////////
 // Main
@@ -17,7 +20,6 @@ for (let i = 0; i < 10; i++) {
   createStar()
 }
 
-const ticks = window.setInterval(tick, tickDurationMilliseconds)
 window.onkeydown = function (event) {
   if (event.key === 'ArrowLeft') {
     moveSpaceShip(-10)
@@ -30,6 +32,25 @@ window.onkeydown = function (event) {
 /// /////////////////////////////////
 // Functions
 /// /////////////////////////////////
+function startGame () {
+  tickInterval = window.setInterval(tick, tickDurationMilliseconds)
+  document.getElementById('gameOver').style.display = 'none'
+  score = 0
+}
+
+function stopGame () {
+  window.clearInterval(tickInterval)
+}
+
+function addToHighscore () {
+  const name = document.getElementById('name').value
+  const highscore = document.getElementById('highscore')
+  
+  const li = document.createElement('li')
+  li.innerText = name + ' - ' + score
+  highscore.appendChild(li)
+}
+
 function tick () {
   const stars = document.getElementsByClassName('star')
 
@@ -63,7 +84,13 @@ function starFalls (star, speed = 10) {
 }
 
 function isStarOutOfScreen (star) {
-  return parseInt(star.style.top) > parseInt(game.style.height)
+  if( parseInt(star.style.top) > parseInt(game.style.height) ) {
+    score++
+    document.getElementById('score').innerText = score
+    return true
+  }
+
+  return false
 }
 
 function moveSpaceShip (distance) {
@@ -83,7 +110,7 @@ function isHit (star) {
 }
 
 function gameOver () {
-  window.clearInterval(ticks)
-  alert('Game Over')
-  window.location.reload()
+  window.clearInterval(tickInterval)
+  const gameover = document.getElementById('gameOver')
+  gameover.style.display = 'flex'
 }

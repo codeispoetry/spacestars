@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,18 @@
 <body>
     <div id="game">
         <div id="ship" style="left: 40px"></div>
+        <div id="gameOver">Game Over</div>
     </div>
+    <div>
+        Gefallene Sterne:
+        <span id="score">0</span>
+    </div>
+    <button id="start" onClick="startGame()">Start</button>
+    <button id="pause" onClick="stopGame()">Stop</button>
+    <input type="text" id="name" placeholder="Name">
+    <button id="save" onClick="addToHighscore()">Speichern</button>
+    <ul id="highscore"></ul>
+
     <script src="script.js"></script>
 </body>
 </html>
