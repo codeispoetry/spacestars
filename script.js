@@ -45,7 +45,7 @@ function stopGame () {
 function updateHighscore () {
   const name = document.getElementById('name').value
   const highscore = document.getElementById('highscore')
-  
+
   const li = document.createElement('li')
   li.innerText = name + ' - ' + score
   highscore.appendChild(li)
@@ -84,7 +84,7 @@ function moveStarDown (star, speed = 10) {
 }
 
 function isStarOutOfScreen (star) {
-  if( parseInt(star.style.top) > parseInt(game.style.height) ) {
+  if (parseInt(star.style.top) > parseInt(game.style.height)) {
     score++
     document.getElementById('score').innerText = score
     return true
