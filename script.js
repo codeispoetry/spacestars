@@ -42,7 +42,7 @@ function stopGame () {
   window.clearInterval(tickInterval)
 }
 
-function addToHighscore () {
+function updateHighscore () {
   const name = document.getElementById('name').value
   const highscore = document.getElementById('highscore')
   
@@ -55,7 +55,7 @@ function tick () {
   const stars = document.getElementsByClassName('star')
 
   for (const star of stars) {
-    starFalls(star)
+    moveStarDown(star)
   }
 }
 
@@ -71,11 +71,11 @@ function createStar () {
   game.appendChild(star)
 }
 
-function starFalls (star, speed = 10) {
+function moveStarDown (star, speed = 10) {
   star.style.top = parseInt(star.style.top) + speed + 'px'
 
   if (isStarOutOfScreen(star)) {
-    if (isHit(star)) {
+    if (checkCollision(star)) {
       gameOver()
     }
     star.remove()
@@ -98,7 +98,7 @@ function moveSpaceShip (distance) {
   ship.style.left = y + distance + 'px'
 }
 
-function isHit (star) {
+function checkCollision (star) {
   const starX = parseInt(star.style.left.replace('px', ''))
   const shipX = parseInt(ship.style.left.replace('px', ''))
   const shipWidth = parseInt(ship.style.width.replace('px', ''))
