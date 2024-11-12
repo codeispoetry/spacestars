@@ -20,13 +20,12 @@ for (let i = 0; i < 10; i++) {
 }
 
 window.setInterval(tick, 100)
-function tick(){
+function tick () {
   const stars = document.getElementsByClassName('star')
 
   for (const star of stars) {
     moveStarDown(star)
   }
-
 }
 
 function moveStarDown (star, speed = 10) {
@@ -34,7 +33,7 @@ function moveStarDown (star, speed = 10) {
 
   if (isStarOutOfScreen(star)) {
     if (checkCollision(star)) {
-      alert("Game Over")
+      alert('Game Over')
     }
     score++
     document.getElementById('score').innerText = score
@@ -59,7 +58,6 @@ function isStarOutOfScreen (star) {
 
   return false
 }
-
 
 function moveSpaceShip (distance) {
   const y = parseInt(ship.style.left.replace('px', ''))

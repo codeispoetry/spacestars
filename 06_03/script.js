@@ -18,7 +18,6 @@ for (let i = 0; i < 10; i++) {
   createStar()
 }
 
-
 function createStar () {
   const x = Math.random() * 600
   const y = Math.random() * 200

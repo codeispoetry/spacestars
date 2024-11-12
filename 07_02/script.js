@@ -14,15 +14,13 @@ for (let i = 0; i < 10; i++) {
 }
 
 window.setInterval(tick, 100)
-function tick(){
+function tick () {
   const stars = document.getElementsByClassName('star')
 
   for (const star of stars) {
     star.style.top = parseInt(star.style.top.replace('px', '')) + 10 + 'px'
   }
-
 }
-
 
 function moveSpaceShip (distance) {
   const y = parseInt(ship.style.left.replace('px', ''))
