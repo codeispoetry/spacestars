@@ -1,24 +1,10 @@
-/// /////////////////////////////////
-// Configurations
-/// /////////////////////////////////
 const game = document.getElementById('game')
 game.style.width = '600px'
 game.style.height = '400px'
-
 const ship = document.getElementById('ship')
 ship.style.width = '20px'
 
-const tickDurationMilliseconds = 50
 let score = 0
-
-let tickInterval
-
-/// /////////////////////////////////
-// Main
-/// /////////////////////////////////
-for (let i = 0; i < 10; i++) {
-  createStar()
-}
 
 window.onkeydown = function (event) {
   if (event.key === 'ArrowLeft') {
@@ -29,17 +15,32 @@ window.onkeydown = function (event) {
   }
 }
 
-/// /////////////////////////////////
-// Functions
-/// /////////////////////////////////
-function startGame () {
-  tickInterval = window.setInterval(tick, tickDurationMilliseconds)
-  document.getElementById('gameOver').style.display = 'none'
-  score = 0
+for (let i = 0; i < 10; i++) {
+  createStar()
 }
 
-function stopGame () {
-  var tickInterval = window.clearInterval(tickInterval)
+let tickInterval = window.setInterval(tick, 100)
+function tick(){
+  const stars = document.getElementsByClassName('star')
+
+  for (const star of stars) {
+    moveStarDown(star)
+  }
+
+}
+
+function moveStarDown (star, speed = 10) {
+  star.style.top = parseInt(star.style.top) + speed + 'px'
+
+  if (isStarOutOfScreen(star)) {
+    if (checkCollision(star)) {
+      gameOver();
+    }
+    score++
+    document.getElementById('score').innerText = score
+    star.remove()
+    createStar(10, 20)
+  }
 }
 
 function updateHighscore () {
@@ -51,17 +52,23 @@ function updateHighscore () {
   highscore.appendChild(li)
 }
 
-function tick () {
-  const stars = document.getElementsByClassName('star')
-
-  for (const star of stars) {
-    moveStarDown(star)
+function isStarOutOfScreen (star) {
+  if (parseInt(star.style.top) > parseInt(game.style.height)) {
+    return true
   }
+
+  return false
+}
+
+
+function moveSpaceShip (distance) {
+  const y = parseInt(ship.style.left.replace('px', ''))
+  ship.style.left = y + distance + 'px'
 }
 
 function createStar () {
   const x = Math.random() * 600
-  const y = Math.random() * -200
+  const y = Math.random() * 200
   const star = document.createElement('div')
   star.className = 'star'
   star.id = 'star' + Math.random()
@@ -69,33 +76,6 @@ function createStar () {
   star.style.top = y + 'px'
 
   game.appendChild(star)
-}
-
-function moveStarDown (star, speed = 10) {
-  star.style.top = parseInt(star.style.top) + speed + 'px'
-
-  if (isStarOutOfScreen(star)) {
-    if (checkCollision(star)) {
-      gameOver()
-    }
-    star.remove()
-    createStar(10, 20)
-  }
-}
-
-function isStarOutOfScreen (star) {
-  if (parseInt(star.style.top) > parseInt(game.style.height)) {
-    score++
-    document.getElementById('score').innerText = score
-    return true
-  }
-
-  return false
-}
-
-function moveSpaceShip (distance) {
-  const y = parseInt(ship.style.left.replace('px', ''))
-  ship.style.left = y + distance + 'px'
 }
 
 function checkCollision (star) {
